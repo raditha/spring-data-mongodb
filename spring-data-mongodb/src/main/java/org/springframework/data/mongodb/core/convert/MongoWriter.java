@@ -21,6 +21,7 @@ import org.springframework.data.mongodb.core.mapping.MongoPersistentProperty;
 import org.springframework.data.util.TypeInformation;
 
 import com.mongodb.DBRef;
+import org.springframework.lang.Nullable;
 
 /**
  * A MongoWriter is responsible for converting an object of type T to the native MongoDB representation Document.
@@ -40,7 +41,8 @@ public interface MongoWriter<T> extends EntityWriter<T, Bson> {
 	 * @param obj can be {@literal null}.
 	 * @return
 	 */
-	Object convertToMongoType(Object obj);
+	@Nullable
+	Object convertToMongoType(@Nullable Object obj);
 
 	/**
 	 * Converts the given object into one Mongo will be able to store natively but retains the type information in case
@@ -50,7 +52,8 @@ public interface MongoWriter<T> extends EntityWriter<T, Bson> {
 	 * @param typeInformation can be {@literal null}.
 	 * @return
 	 */
-	Object convertToMongoType(Object obj, TypeInformation<?> typeInformation);
+	@Nullable
+	Object convertToMongoType(@Nullable Object obj, @Nullable TypeInformation<?> typeInformation);
 
 	/**
 	 * Creates a {@link DBRef} to refer to the given object.
@@ -60,5 +63,5 @@ public interface MongoWriter<T> extends EntityWriter<T, Bson> {
 	 *          the {@link DBRef} object to create. Can be {@literal null}.
 	 * @return will never be {@literal null}.
 	 */
-	DBRef toDBRef(Object object, MongoPersistentProperty referingProperty);
+	DBRef toDBRef(Object object, @Nullable MongoPersistentProperty referingProperty);
 }
